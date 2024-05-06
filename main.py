@@ -14,27 +14,27 @@ def login():
     driver = webdriver.Firefox()
     driver.get("https://www.twitter.com")
     
-    enter = WebDriverWait(driver, 10).until(
+    enter = WebDriverWait(driver, 3).until(
         EC.element_to_be_clickable((By.XPATH, '//*[@id="react-root"]/div/div/div[2]/main/div/div/div[1]/div/div/div[3]/div[5]/a/div'))
     )
     enter.click()
     
-    enter_username = WebDriverWait(driver, 10).until(
+    enter_username = WebDriverWait(driver, 3).until(
         EC.presence_of_element_located((By.XPATH, '//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div/div/div/div[5]/label/div/div[2]/div/input'))
     )
     enter_username.send_keys(os.getenv('USERNAME'))
     
-    next_button = WebDriverWait(driver, 10).until(
+    next_button = WebDriverWait(driver, 3).until(
         EC.element_to_be_clickable((By.XPATH, '//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div/div/div/div[6]/div'))
     )
     next_button.click()
     
-    enter_password = WebDriverWait(driver, 10).until(
+    enter_password = WebDriverWait(driver, 3).until(
         EC.presence_of_element_located((By.XPATH, '//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[3]/div/label/div/div[2]/div[1]/input'))
     )
     enter_password.send_keys(os.getenv('PASSWORD'))
     
-    final_enter = WebDriverWait(driver, 10).until(
+    final_enter = WebDriverWait(driver, 3).until(
         EC.element_to_be_clickable((By.XPATH, '//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div[1]/div/div/div/div'))
     )
     final_enter.click()
@@ -42,11 +42,11 @@ def login():
     return driver
 
 def go_to_profile(driver):
-    time.sleep(5)
+    time.sleep(2)
     driver.get("https://www.twitter.com/" + os.getenv('USERNAME'))
     
 def find_first_visible_element(driver, css_selector):
-    elements = WebDriverWait(driver, 10).until(
+    elements = WebDriverWait(driver, 3).until(
         EC.presence_of_all_elements_located((By.CSS_SELECTOR, css_selector))
     )
     
@@ -58,12 +58,12 @@ def find_first_visible_element(driver, css_selector):
 
 def unretweet(driver):
     try:
-        unretweet_button = WebDriverWait(driver, 10).until(
+        unretweet_button = WebDriverWait(driver, 3).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, 'r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1xvli5t r-1hdv0qi'))
         )
         unretweet_button.click()
         
-        confirm = WebDriverWait(driver, 10).until(
+        confirm = WebDriverWait(driver, 3).until(
             EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/div/div/div[1]/div[2]/div/div/div/div[2]/div/div[3]/div/div/div/div'))
         )
         confirm.click()
@@ -73,16 +73,16 @@ def unretweet(driver):
 def erase(driver):
 
     try:
-        time.sleep(5)
+        time.sleep(1)
         dots = find_first_visible_element(driver, '.r-4qtqp9.r-yyyyoo.r-dnmrzs.r-bnwqim.r-1plcrui.r-lrvibr.r-1xvli5t.r-1hdv0qi')
         dots.click()
     
-        erase_button = WebDriverWait(driver, 10).until(
+        erase_button = WebDriverWait(driver, 3).until(
             EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/div/div/div[1]/div[2]/div/div/div/div[2]/div/div[3]/div/div/div/div[1]'))
         )
         erase_button.click()
         
-        confirm = WebDriverWait(driver, 10).until(
+        confirm = WebDriverWait(driver, 3).until(
         EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/div/div/div[1]/div[2]/div/div/div/div/div/div[2]/div[2]/div[2]/div[1]/div'))
     )
         confirm.click()
@@ -91,7 +91,7 @@ def erase(driver):
         driver.execute_script("window.scrollBy(0, 300)")
     
     
-    time.sleep(5)
+    #time.sleep(2)
 
 
 driver = login()
